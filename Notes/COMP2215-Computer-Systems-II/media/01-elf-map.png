@@ -1,0 +1,7 @@
+--2021-02-04 12:24:44--  https://wiki.osdev.org/images/f/fe/Elfdiagram.png
+Loaded CA certificate '/etc/ssl/certs/ca-certificates.crt'
+Resolving wiki.osdev.org (wiki.osdev.org)... 2600:3c00::f03c:91ff:fedf:5242, 173.255.206.39
+Connecting to wiki.osdev.org (wiki.osdev.org)|2600:3c00::f03c:91ff:fedf:5242|:443... connected.
+HTTP request sent, awaiting response... 403 Forbidden
+2021-02-04 12:24:45 ERROR 403: Forbidden.
+
