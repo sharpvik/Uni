@@ -4,51 +4,17 @@ import java.util.Scanner;
 
 
 /**
- * UDPSender contains the main method that launches the little REPL-ish
- * interface that asks for message input and dumps it over the UDP Conn.
- *
- * Make sure to pass server address as a command-line argument like so:
- *
- * ~$  java UDPSender myserver.co.uk
- *
- */
-class UDPSender {
-    private static String getMessage(Scanner stdin) {
-        System.out.print("Enter message: ");
-        return stdin.nextLine().trim();
-    }
-
-    public static void main(String[] args) {
-        Scanner stdin = new Scanner(System.in);
-
-        try {
-
-            Conn conn = new Conn(args[0], 4321);
-
-            while (true) {
-                String message = UDPSender.getMessage(stdin);
-                if (message.equals(".exit")) break;
-                String debugInfo = conn.send(message);
-                System.out.println(debugInfo);
-            }
-
-        } catch (Exception e) { e.printStackTrace(); }
-    }
-}
-
-
-/**
- * Conn represents connection to UDP server. There is no real 'connection'
+ * UDPSender represents connection to UDP server. There is no real 'connection'
  * going on, so Conn just stores server address and port. Conn is created for
  * its convenient send function.
  */
-class Conn {
+class UDPSender {
     private InetAddress targetAddress;
     private int targetPort;
     private DatagramSocket socket;
 
     /** Constructor expects target server's address and port. */
-    public Conn(String address, int port) throws Exception {
+    public UDPSender(String address, int port) throws Exception {
         this.targetAddress = InetAddress.getByName(address);
         this.targetPort = port;
         this.socket = new DatagramSocket();
