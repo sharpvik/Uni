@@ -38,3 +38,11 @@ Current architecture doesn't support multiple clients since they will collide
 on the port, but if they attempt to use different ports, then ack/t will only be
 sent to the one that uses port 1234. This is said, but we may be able to fix
 that in the next revision.
+
+According to [this doc ref][1], it is possible to get the location of a
+`DatagramSocket` created with the empty constructor that binds to any available
+port. This can be used to remove the necessity of creating an extra receiver
+within the `Client`. The `Server` can respond to the socket from which it
+received a message (I hope).
+
+[1]: https://docs.oracle.com/javase/7/docs/api/java/net/DatagramSocket.html#setSoTimeout(int)
