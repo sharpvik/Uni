@@ -63,3 +63,7 @@ command from any client, the server will shutdown immediately.
 
 Each `Client` also supports the `.exit` command. If you input that command as a
 message, the client is going to shut down.
+
+This is how it looks:
+
+![One server with multiple clients](media/one-server-multiple-clients.png)
