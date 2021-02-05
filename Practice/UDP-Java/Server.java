@@ -16,43 +16,35 @@ import java.util.*;
  *
  */
 class Server {
-    private UDPReceiver r;
-    private UDPSender s;
+    private UDPActor udp;
 
-    private void ack() throws Exception {
-        this.s.send("ack");
+    public Server(int myport) throws Exception {
+        udp = new UDPActor(myport);
     }
 
-    public Server(int myport, String ackaddr, int ackport) throws Exception {
-        this.r = new UDPReceiver(myport);
-        this.s = new UDPSender(ackaddr, ackport);
-    }
-
-    public String recvWithAck() throws Exception {
-        String debugInfo = this.r.recv();
-        this.ack();
-        return debugInfo;
+    public Message recvWithAck() throws Exception {
+        return udp.recvWithAck(1024);
     }
 
     /**
-     * Launches Server on port 4321 with ack port 1234. We assume that both
-     * Client and Server are setup on the same machine and therefore can be
-     * accessed on localhost.
+     * Launches Server on port 4321.
+     * We assume that both Client and Server are setup on the same machine and
+     * therefore can beaccessed on localhost.
      */
     public static void main(String[] args) {
-        System.out.println("Serving at localhost:1234 ...\n");
+        int port = 4321;
+        System.out.printf("Serving at localhost:%d ...\n", port);
+
         try {
 
-            Server s = new Server(4321, "localhost", 1234);
+            Server s = new Server(port);
 
             while (true) {
-                String debugInfo = s.recvWithAck();
-                if (debugInfo.equals("/exit")) break;
-                System.out.println(debugInfo);
+                Message msg = s.recvWithAck();
+                System.out.println(msg.info());
+                if (msg instanceof TerminationSignal) break;
             }
 
         } catch (Exception e) { e.printStackTrace(); }
-
-        System.out.println("SIGINT: EXIT");
     }
 }

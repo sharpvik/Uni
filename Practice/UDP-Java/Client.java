@@ -1,4 +1,5 @@
 import java.util.*;
+import java.net.*;
 
 
 /**
@@ -12,48 +13,56 @@ import java.util.*;
  */
 class Client {
     private Scanner stdin;
-    private UDPReceiver r;
-    private UDPSender s;
-
-    private void awaitAck() {
-        try {
-            String _ack = this.r.recv(); // Not checking the ack for now.
-            System.out.println("ACK RECEIVED\n");
-        } catch (Exception _e) {
-            System.out.println("ACK NOT RECEIVED: TIMEOUT\n");
-        }
-    }
+    private InetAddress addr;
+    private int port;
+    private UDPActor udp;
 
     private String getMessage() {
         System.out.print("Enter message: ");
         return stdin.nextLine().trim();
     }
 
-    public Client(int myport, String ackaddr, int ackport) throws Exception {
-        this.stdin = new Scanner(System.in);
-        this.r = new UDPReceiver(myport, 5000); // Await time limit of 5 sec.
-        this.s = new UDPSender(ackaddr, ackport);
+    /** Client sends messages to Server located at addr:port */
+    public Client(String address, int port, int timeout) throws Exception {
+        stdin = new Scanner(System.in);
+        addr = InetAddress.getByName(address);
+        this.port = port;
+        DatagramSocket sock = new DatagramSocket();
+        sock.setSoTimeout(timeout);
+        udp = new UDPActor(sock);
     }
 
-    public void sendAndAwaitAck(String message) throws Exception {
-        this.s.send(message);
-        this.awaitAck();
+    /** Returns boolean flag to signify ack/t success/failure where
+     * true = success, false = failure.
+     */
+    public boolean sendAndAwaitAck(String msg) {
+        try {
+            udp.sendAndAwaitAck(new Message(msg, addr, port));
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
     }
 
     /**
-     * Launches Client with ack port 1234 and target port 4321. We assume that
-     * both Client and Server are setup on the same machine and therefore can be
-     * accessed on localhost.
+     * Launches Client with target port 4321 and timeout of 2 seconds.
+     * We assume that both Client and Server are setup on the same machine and
+     * therefore can be accessed on localhost.
      */
     public static void main(String[] args) {
         try {
 
-            Client c = new Client(1234, "localhost", 4321);
+            Client c = new Client("localhost", 4321, 2000);
 
             while (true) {
-                String message = c.getMessage();
-                if (message.equals(".exit")) break;
-                c.sendAndAwaitAck(message);
+                String msg = c.getMessage();
+                if (msg.equals(".exit")) break;
+                boolean ack = c.sendAndAwaitAck(msg);
+                System.out.println(
+                        (ack)
+                        ? "ACKNOWLEDGEMENT RECEIVED\n"
+                        : "ACKNOWLEDGEMENT NOT RECEIVED\n");
             }
 
         } catch (Exception e) { e.printStackTrace(); }
