@@ -7,6 +7,6 @@ notice that it simply prints the _columns_ of a CSV file.
 ## Compile & Run
 
 ```bash
-ghc WS1.hs -o csv-cols
-./csv-cols data.csv
+ghc Cols.hs -o cols
+./cols data.csv
 ```
