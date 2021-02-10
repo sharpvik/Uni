@@ -35,7 +35,7 @@ Let's look at the general pipeline:
 
 ```
                *---------*                    *-----------*
---- String --> | Scanner | --- [ String ] --> | Evaluator | -- [ Token ] -->
+--- String --> | Scanner | --- [ String ] --> | Evaluator | --- [ Token ] -->
                *---------*                    *-----------*
 ```
 
