@@ -1,0 +1,7 @@
+<prog> ::= <stmt> | <stmt> <prog>
+<stmt> ::= <fwd> | <rot> | <if>
+<fwd>  ::= forward <int>
+<rot>  ::= rotate <dir>
+<dir>  ::= left | right
+<if>   ::= if obstacle in <int> then <prog> else <prog> fi
+<int>  ::= 0 | 1 | 2 | 3 ...

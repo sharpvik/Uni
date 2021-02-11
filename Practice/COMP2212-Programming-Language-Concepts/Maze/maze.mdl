@@ -1,0 +1,10 @@
+forward 10
+rotate left
+if obstacle in 3 then
+    rotate left
+    forward 1
+    rotate right
+else
+    forward 3
+    rotate left
+fi
