@@ -6,7 +6,7 @@ The Alex tool is a code generation tool that automatically generates lexers in
 Haskell. To use it, you must provide an Alex specification (a list of lexemes
 and a tokenisation action for each lexeme).
 
-Alex generates Haskell function named alexScan that does the job of a scanner
+Alex generates Haskell function named `alexScan` that does the job of a scanner
 but also identifies tokens and actions to be taken.
 
 Alex is parametrisable in the way it scans and evaluates; in order to customise
