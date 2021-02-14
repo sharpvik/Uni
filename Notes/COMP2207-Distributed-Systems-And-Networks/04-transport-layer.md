@@ -154,7 +154,7 @@ over time until some timeouts happen. Then, TCP will try to readjust.
 
 ## The Sliding Window
 
-![The sliding window protocol diagram](media/05-sliding-window.png)
+![The sliding window protocol diagram](media/04-sliding-window.png)
 
 1. Sender sends a segment with a sequence number (SEQ) and starts a timer
 2. Receiver replies with an ack/t number showing next sequence number it expects
