@@ -1,5 +1,5 @@
 { 
-module MazeTokens where 
+module Tokens where 
 }
 
 %wrapper "posn" 
@@ -32,5 +32,23 @@ data Token
   | TokenForward    AlexPosn
   deriving (Eq,Show) 
 
-tokenPosn (AlexPn _ x y) = show x ++ ":" ++ show y
+tokenPosn :: Token -> String
+tokenPosn (TokenInt     (AlexPn _ x y) _)
+  = "line " ++ show x ++ ", column " ++ show y
+tokenPosn (TokenIf      (AlexPn _ x y))
+  = "line " ++ show x ++ ", column " ++ show y
+tokenPosn (TokenThen    (AlexPn _ x y))
+  = "line " ++ show x ++ ", column " ++ show y
+tokenPosn (TokenElse    (AlexPn _ x y))
+  = "line " ++ show x ++ ", column " ++ show y
+tokenPosn (TokenFi      (AlexPn _ x y))
+  = "line " ++ show x ++ ", column " ++ show y
+tokenPosn (TokenRotate  (AlexPn _ x y))
+  = "line " ++ show x ++ ", column " ++ show y
+tokenPosn (TokenLeft    (AlexPn _ x y))
+  = "line " ++ show x ++ ", column " ++ show y
+tokenPosn (TokenRight   (AlexPn _ x y))
+  = "line " ++ show x ++ ", column " ++ show y
+tokenPosn (TokenForward (AlexPn _ x y))
+  = "line " ++ show x ++ ", column " ++ show y
 }
