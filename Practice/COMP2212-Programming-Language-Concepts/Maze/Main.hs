@@ -1,9 +1,9 @@
 import System.Environment
 
-import qualified Tokens
-import qualified Grammar
+import Lexer
+import Parser
 
 main :: IO () 
 main = getArgs 
     >>= (readFile . head) 
-    >>= (print . Grammar.parseMaze . Tokens.alexScanTokens)
+    >>= (print . parse . tokenize)

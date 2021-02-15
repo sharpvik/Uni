@@ -1,9 +1,9 @@
 { 
-module Grammar where 
-import Tokens 
+module Parser where 
+import Lexer 
 }
 
-%name parseMaze 
+%name parse 
 %tokentype { Token } 
 %error { parseError }
 %token 

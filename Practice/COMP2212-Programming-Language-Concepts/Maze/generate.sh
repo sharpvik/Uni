@@ -7,5 +7,5 @@
 # Make sure you have appropriate versions of both `alex` and `happy`!
 #
 
-alex Tokens.x
-happy Grammar.y
+alex Lexer.x
+happy Parser.y
