@@ -1,0 +1,3 @@
+let pi = 3 in
+let a = pi * r^2
+a

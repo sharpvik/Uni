@@ -68,7 +68,7 @@ Exp1    : Exp1 '+' Term             { Plus $1 $3 }
         | Exp1 '-' Term             { Minus $1 $3 }
         | Term                      { Term $1 }
 
-Term    : Term '+' Factor           { Times $1 $3 }
+Term    : Term '*' Factor           { Times $1 $3 }
         | Term '/' Factor           { Div $1 $3 }
         | Factor                    { Factor $1 }
 
