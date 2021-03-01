@@ -1,4 +1,4 @@
-module Repl ( Repl.read, Repl.loop ) where
+module Repl ( Repl.cycle, Repl.loop ) where
 
 
 import System.IO as Buf
@@ -6,7 +6,6 @@ import Data.Foldable
 import Control.Monad
 
 import qualified Eval
-import qualified Parser
 
 
 -- read prints out some helpful prefix to express that it's 
@@ -14,13 +13,22 @@ import qualified Parser
 -- returns it.
 read :: IO String
 read = do
-    printFlush "λ "
+    printFlush "λ <- "
     getLine
+
+
+print :: String -> IO ()
+print = putStrLn . (++ "\n") . ("λ -> " ++)
+
+
+cycle :: String -> IO ()
+cycle = Repl.print . show . Eval.eval
 
 
 -- loop spins up an infinite loop that reads from stdin, evaluates, and prints
 -- the evaluated expression to stdout.
-loop = forever (Repl.read >>= Eval.evalAndPrint)
+loop :: IO ()
+loop = forever $ Repl.read >>= Repl.cycle
 
 
 ---------- UTILITY FUNCTIONS ---------------------------------------------------

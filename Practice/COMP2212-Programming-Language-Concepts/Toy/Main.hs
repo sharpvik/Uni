@@ -1,11 +1,12 @@
 import System.Environment
 
 import qualified Repl
-import qualified Eval
 
 main :: IO () 
-main = getArgs >>= (mode . head) 
+main = getArgs >>= mode 
 
-mode :: String -> IO ()
-mode "repl" = Repl.loop
-mode file = readFile file >>= Eval.evalAndPrint
+mode :: [String] -> IO ()
+mode [] = Repl.loop
+mode ["repl"] = Repl.loop
+mode [file] = readFile file >>= Repl.cycle
+mode _ = putStrLn "Invlid invocation!\nUsage: Toy [repl | <file.toy>]"
