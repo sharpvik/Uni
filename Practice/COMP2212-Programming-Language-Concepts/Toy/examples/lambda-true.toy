@@ -1,5 +1,5 @@
 let 
-    (t : T -> U -> T) = \(x : T) \(y : U) x
+    (t : T -> U -> T) = \(x : T) ( \(y : U) (x) )
 in let
     (b : Bool) = if true then true else false
 in

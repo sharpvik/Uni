@@ -33,7 +33,7 @@ import Lexer
 Exp      : Brack                         { $1 }
          | let TypedVar '=' Exp in Exp   { LetExp $2 $4 $6 }
          | if Exp then Exp else Exp      { IfExp $2 $4 $6 }
-         | '\\' TypedVar Exp             { LambdaExp $2 $3 }
+         | '\\' TypedVar Brack           { LambdaExp $2 $3 }
          | Exp Brack                     { AppExp $1 $2 }
          | Exp '<' Exp                   { LessThanExp $1 $3 } 
          | Exp '+' Exp                   { PlusExp $1 $3 }
