@@ -22,7 +22,7 @@ print = putStrLn . (++ "\n") . ("λ -> " ++)
 
 
 cycle :: String -> IO ()
-cycle = Repl.print . show . Eval.eval
+cycle = Repl.print . Eval.evalAndShow
 
 
 -- loop spins up an infinite loop that reads from stdin, evaluates, and prints
