@@ -6,7 +6,14 @@ main :: IO ()
 main = getArgs >>= mode 
 
 mode :: [String] -> IO ()
-mode [] = Repl.loop
+mode [] = help
+mode ["help"] = help
 mode ["repl"] = Repl.loop
 mode [file] = readFile file >>= Repl.cycle
-mode _ = putStrLn "Invlid invocation!\nUsage: Toy [repl | <file.toy>]"
+mode _ = putStrLn $ "Invlid invocation!\n" ++ usage
+
+help :: IO ()
+help = putStrLn usage
+
+usage :: String
+usage = "Usage: Toy [help | repl | <file.toy>]"
