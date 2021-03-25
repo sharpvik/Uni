@@ -1,0 +1,9 @@
+clang                                                                                                                
+-target                                                                                                                 
+avr                                                                                                                     
+-mmcu=at90usb1286                                                                                                       
+-nostdinc                                                                                                               
+-nostdinc++      
+-I/usr/lib/gcc/avr/10.2.0/include
+-I/usr/lib/gcc/avr/10.2.0/include-fixed
+-I/usr/lib/gcc/avr/10.2.0/../../../../avr/include
